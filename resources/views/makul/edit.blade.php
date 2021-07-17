@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Edit Makul
-                    <a href="{{ route('makul') }}" class="btn btn-md btn-primary float-right">Data Matakuliah</a>
+                <div class="card-header">Edit Data
+                    <!-- <a href="{{ route('makul') }}" class="btn btn-md btn-primary float-right">Data Matakuliah</a> -->
                 </div>
 
                 <div class="card-body">
