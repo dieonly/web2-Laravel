@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2021 at 06:12 PM
+-- Generation Time: Jul 18, 2021 at 08:48 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -45,12 +45,12 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `mahasiswa` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `npm` varchar(8) NOT NULL,
+  `tempat_lahir` varchar(50) NOT NULL,
   `tgl_lahir` date NOT NULL,
-  `tempat_lahir` varchar(30) NOT NULL,
+  `gender` enum('L','P','','') NOT NULL,
   `telepon` varchar(15) NOT NULL,
   `alamat` text NOT NULL,
-  `gender` enum('L','P','','') NOT NULL,
-  `foto` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -59,8 +59,9 @@ CREATE TABLE `mahasiswa` (
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`id`, `user_id`, `tgl_lahir`, `tempat_lahir`, `telepon`, `alamat`, `gender`, `foto`, `created_at`, `updated_at`) VALUES
-(1, 1, '2021-06-18', 'Ngawi', '082283987965', 'Martapura', 'L', '', '2021-06-20 02:40:30', '2021-06-18 02:40:30');
+INSERT INTO `mahasiswa` (`id`, `user_id`, `npm`, `tempat_lahir`, `tgl_lahir`, `gender`, `telepon`, `alamat`, `created_at`, `updated_at`) VALUES
+(1, 1, '19630047', 'Ngawi', '1999-09-10', 'L', '082283987965', 'Martapura', '2021-06-20 02:40:30', '2021-06-18 02:40:30'),
+(2, 2, '19630240', 'Martapura', '2011-06-16', 'L', '087815264569', 'Banjarbaru', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -80,13 +81,16 @@ CREATE TABLE `makul` (
 --
 
 INSERT INTO `makul` (`id`, `kd_makul`, `nama_makul`, `sks`) VALUES
-(1, 'ML0001', 'Filsafat Ilmu', 2),
-(3, 'MK0002', 'Matematika Diskrit', 2),
-(5, 'MK0003', 'Pemrograman Berbasis Object 1', 3),
-(7, 'MK0004', 'Jaringan Komputer 2', 3),
-(8, 'MK0005', 'Sistem Terdistribusi', 2),
-(9, 'MK0007', 'Perancangan Database', 3),
-(10, 'MK0008', 'Sistem Informasi Geografis', 2);
+(1, 'ML0001', 'Filsafat Ilmu', 22),
+(3, 'MK0002', 'Pemrograman Visual 2', 22),
+(5, 'MK0003', 'Pemrograman Berbasis Objek 1', 24),
+(7, 'MK0004', 'Jaringan Komputer 2', 20),
+(8, 'MK0005', 'Sistem Terdistribusi', 23),
+(9, 'MK0007', 'Perancangan Database', 25),
+(10, 'MK0008', 'Sistem Informasi Geografis', 26),
+(18, 'MK0009', 'Pemrograman Web 2', 33),
+(19, 'MK0010', 'Sosial Budaya', 22),
+(20, 'MK0011', 'Tauhid', 21);
 
 -- --------------------------------------------------------
 
@@ -117,10 +121,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `nilai` (
   `id` int(11) NOT NULL,
+  `mahasiswa_id` int(11) NOT NULL,
   `makul_id` int(11) NOT NULL,
-  `mahasiswa` int(11) NOT NULL,
   `nilai` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `nilai`
+--
+
+INSERT INTO `nilai` (`id`, `mahasiswa_id`, `makul_id`, `nilai`) VALUES
+(9, 1, 18, 100);
 
 -- --------------------------------------------------------
 
@@ -156,7 +167,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'yusufsetya77@gmail.com', NULL, '$2y$10$rUnz1c1Lo7hojdPoi./Ij.p/drfjZ00rs8h0g/t38Ia4BaFHwieRq', NULL, '2021-06-16 18:54:55', '2021-06-16 18:54:55');
+(1, 'Yusuf Setianovanto', 'yusufsetya77@gmail.com', NULL, '$2y$10$rUnz1c1Lo7hojdPoi./Ij.p/drfjZ00rs8h0g/t38Ia4BaFHwieRq', NULL, '2021-06-16 18:54:55', '2021-06-16 18:54:55'),
+(2, 'Thesa Aprianto', 'Xpneedlol@gmail.com', NULL, '$2y$10$rUnz1c1Lo7hojdPoi./Ij.p/drfjZ00rs8h0g/t38Ia4BaFHwieRq', NULL, '2021-06-16 18:54:55', '2021-06-16 18:54:55'),
+(5, 'Hendrik', 'hendrik@gmail.com', NULL, '$2y$10$03TXU.W17RaxT6ppQkGQJ.AWE3RYJcyfeECE4ktua.fGH8kDiaovO', NULL, '2021-07-15 19:12:13', '2021-07-15 19:12:13');
 
 --
 -- Indexes for dumped tables
@@ -219,13 +232,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `makul`
 --
 ALTER TABLE `makul`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -237,13 +250,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
